@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成长习惯 · 记录美好人生</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #D4B5A6;
+            --secondary: #B8C5D6;
+            --accent: #E8D5C4;
+            --text-dark: #5A5A5A;
+            --text-light: #8A8A8A;
+            --bg-light: #F7F5F2;
+            --white: #FFFFFF;
+            --green: #A8C5A4;
+            --pink: #E5B8C4;
+            --yellow: #F2D9A8;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* 顶部导航 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-record {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-record:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--white);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--white);
+            opacity: 0.2;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle1 { width: 300px; height: 300px; top: 10%; left: 10%; animation-delay: 0s; }
+        .circle2 { width: 200px; height: 200px; top: 60%; right: 15%; animation-delay: 2s; }
+        .circle3 { width: 150px; height: 150px; bottom: 20%; left: 50%; animation-delay: 4s; }
+
+        /* 主要内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 8rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* 卡片网格 */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 特殊卡片样式 */
+        .card.event { border-left: 4px solid var(--green); }
+        .card.emotion { border-left: 4px solid var(--pink); }
+        .card.goal { border-left: 4px solid var(--yellow); }
+
+        /* 添加记录按钮 */
+        .card-action {
+            margin-top: 1.5rem;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 25px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .close-modal {
+            font-size: 2rem;
+            color: var(--text-light);
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #E5E5E5;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s;
+            color: var(--text-dark);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(212, 181, 166, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            flex: 1;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #F0F0F0;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #E5E5E5;
+        }
+
+        /* 记录列表 */
+        .records-list {
+            margin-top: 2rem;
+            min-height: 200px;
+        }
+
+        .record-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+        }
+
+        .record-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .record-date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .record-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.3rem;
+            transition: all 0.3s;
+            color: var(--text-light);
+        }
+
+        .btn-icon:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .btn-delete:hover {
+            color: #E57373;
+        }
+
+        .record-content {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .record-content h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .record-content h4:first-child {
+            margin-top: 0;
+        }
+
+        .record-content p {
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .record-type-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-morning { background: #FFF3E0; color: #F57C00; }
+        .badge-evening { background: #E3F2FD; color: #1976D2; }
+        .badge-emotion { background: #FCE4EC; color: #C2185B; }
+        .badge-gratitude { background: #F3E5F5; color: #7B1FA2; }
+        .badge-odyssey { background: #E8F5E9; color: #388E3C; }
+        .badge-wheel { background: #FFF9C4; color: #F57F17; }
+        .badge-celebration { background: #FFE0B2; color: #E65100; }
+        .badge-fear { background: #FFEBEE; color: #D32F2F; }
+        .badge-romen { background: #E0F2F1; color: #00796B; }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* 奥德赛计划特殊布局 */
+        .odyssey-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .odyssey-card {
+            background: linear-gradient(135deg, var(--white) 0%, var(--bg-light) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .odyssey-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .odyssey-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .odyssey-card h4 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .odyssey-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* 结尾理念区域 */
+        .manifesto {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 30px;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manifesto::before {
+            content: '"';
+            position: absolute;
+            font-size: 15rem;
+            color: rgba(255,255,255,0.1);
+            top: -3rem;
+            left: 2rem;
+            font-family: Georgia, serif;
+        }
+
+        .manifesto h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .manifesto p {
+            font-size: 1.3rem;
+            color: var(--white);
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 2;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            opacity: 0.8;
+        }
+
+        /* 滚动进度条 */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 9999;
+            transition: width 0.2s ease;
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 4rem 1.5rem;
+            }
+
+            .manifesto h2 {
+                font-size: 1.8rem;
+            }
+
+            .manifesto p {
+                font-size: 1.1rem;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* 移动端菜单按钮 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 滚动进度条 -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <div class="logo">成长习惯</div>
+            <ul class="nav-links">
+                <li><a href="#events">事件记录</a></li>
+                <li><a href="#emotions">情绪管理</a></li>
+                <li><a href="#goals">目标行动</a></li>
+                <li><a href="#my-records" class="btn-record">我的记录</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="floating-circle circle1"></div>
+            <div class="floating-circle circle2"></div>
+            <div class="floating-circle circle3"></div>
+        </div>
+        <div class="hero-content">
+            <h1>记录美好 · 成就未来</h1>
+            <p>用习惯改变生活，用笔记见证成长</p>
+        </div>
+    </section>
+
+    <!-- 主要内容 -->
+    <div class="container">
+        <!-- 事件记录模块 -->
+        <section id="events" class="section">
+            <h2 class="section-title">事件记录</h2>
+            <div class="cards-grid">
+                <div class="card event">
+                    <div class="card-icon">🌅</div>
+                    <h3>晨间日记</h3>
+                    <p>在清晨的宁静中，用自由书写唤醒内心的创造力。不设限制，不加评判，让思绪如溪流般自然流淌。</p>
+                    <ul>
+                        <li>自由书写，捕捉灵感</li>
+                        <li>开启一天的积极心态</li>
+                        <li>发现内心真实的声音</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('morning')">开始晨间记录</button>
+                    </div>
+                </div>
+
+                <div class="card event">
+                    <div class="card-icon">🌙</div>
+                    <h3>晚间日记</h3>
+                    <p>用几句简单的话语，记录今天最有故事性的瞬间。这些看似平凡的记录，终将汇成生命的长河。</p>
+                    <ul>
+                        <li>捕捉当天精彩时刻</li>
+                        <li>培养观察生活的敏感度</li>
+                        <li>积累珍贵的人生素材</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('evening')">开始晚间记录</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 情绪管理模块 -->
+        <section id="emotions" class="section">
+            <h2 class="section-title">情绪管理</h2>
+            <div class="cards-grid">
+                <div class="card emotion">
+                    <div class="card-icon">💭</div>
+                    <h3>情绪记录</h3>
+                    <p>情绪无好坏，只有被看见才能被疗愈。通过记录，释放压抑的情感，觉察内心的波动。</p>
+                    <ul>
+                        <li>释放情绪能量</li>
+                        <li>提升情绪觉察力</li>
+                        <li>理解情绪背后的需求</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('emotion')">记录情绪</button>
+                    </div>
+                </div>
+
+                <div class="card emotion">
+                    <div class="card-icon">🙏</div>
+                    <h3>感恩日记</h3>
+                    <p>感恩是生活最美的滤镜。每天记录三个感谢对象,发现生活中的美好与温暖。</p>
+                    <ul>
+                        <li>列出三个感谢的人</li>
+                        <li>描述他们的美好品质</li>
+                        <li>记录体现品质的具体事件</li>
+                        <li>选择性地分享感恩</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('gratitude')">记录感恩</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 目标与行动模块 -->
+        <section id="goals" class="section">
+            <h2 class="section-title">目标与行动</h2>
+
+            <!-- 奥德赛计划 -->
+            <div class="card goal" style="margin-bottom: 2rem;">
+                <div class="card-icon">🚀</div>
+                <h3>奥德赛计划</h3>
+                <p>想象三种五年后的人生版本，为未来绘制多种可能性的地图。</p>
+                
+                <div class="odyssey-plans">
+                    <div class="odyssey-card">
+                        <div class="odyssey-icon">📍</div>
+                        <h4>现状延续版</h4>
+                        <p>延续当前的路径，看看会通向何方</p>
+                    </div>
+                    <div class="odyssey-card">
+                        <div class="odyssey-icon">🔄</div>
+                        <h4>改变转型版</h4>
+                        <p>勇敢转身，探索全新的可能</p>
+                    </div>
+                    <div class="odyssey-card">
+                        <div class="odyssey-icon">⭐</div>
+                        <h4>理想实现版</h4>
+                        <p>如果一切顺利，梦想将如何绽放</p>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button class="btn-add" onclick="openRecordModal('odyssey')">规划奥德赛</button>
+                </div>
+            </div>
+
+            <!-- 其他工具 -->
+            <div class="cards-grid">
+                <div class="card goal">
+                    <div class="card-icon">⚖️</div>
+                    <h3>生命之轮</h3>
+                    <p>用1-10分评估生活各个维度的满意度，找到需要滋养的领域。</p>
+                    <ul>
+                        <li>健康、事业、人际关系</li>
+                        <li>个人成长、休闲娱乐</li>
+                        <li>可视化生活平衡状态</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('wheel')">评估生命之轮</button>
+                    </div>
+                </div>
+
+                <div class="card goal">
+                    <div class="card-icon">🎉</div>
+                    <h3>12月庆典</h3>
+                    <p>站在一年后的时间点，回望今天，为现在的行动与选择庆祝。</p>
+                    <ul>
+                        <li>展望未来的成就</li>
+                        <li>肯定当下的努力</li>
+                        <li>激励持续前行</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('celebration')">开启庆典</button>
+                    </div>
+                </div>
+
+                <div class="card goal">
+                    <div class="card-icon">🛡️</div>
+                    <h3>恐惧设定</h3>
+                    <p>直面恐惧的系统思考法，将模糊的担忧转化为清晰的行动计划。</p>
+                    <ul>
+                        <li>最坏的结果是什么？</li>
+                        <li>如何预防和补救？</li>
+                        <li>成功后会有什么影响？</li>
+                        <li>逃避的代价是什么？</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('fear')">设定恐惧</button>
+                    </div>
+                </div>
+
+                <div class="card goal">
+                    <div class="card-icon">👴</div>
+                    <h3>罗门悖论</h3>
+                    <p>以几十年后的视角，像智慧长者一样，给现在的自己提供建议。</p>
+                    <ul>
+                        <li>跳出当下的局限</li>
+                        <li>获得更宏观的视野</li>
+                        <li>做出更明智的选择</li>
+                    </ul>
+                    <div class="card-action">
+                        <button class="btn-add" onclick="openRecordModal('romen')">写给自己</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 我的记录 -->
+        <section id="my-records" class="section">
+            <h2 class="section-title">我的记录</h2>
+            <div id="recordsList" class="records-list">
+                <!-- 记录将在这里动态显示 -->
+            </div>
+        </section>
+
+        <!-- 核心理念 -->
+        <section class="manifesto section">
+            <h2>一切都有希望</h2>
+            <p>行动永远不晚。以日记为起点，一个习惯改善一生。<br>从今天开始，用记录见证成长，用习惯塑造未来。</p>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2024 成长习惯 · 记录美好人生</p>
+        <p style="margin-top: 0.5rem; opacity: 0.7; font-size: 0.9rem;">每一次记录，都是与自己的温柔对话</p>
+    </footer>
+
+    <!-- 记录模态框 -->
+    <div id="recordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">开始记录</h2>
+                <button class="close-modal" onclick="closeRecordModal()">×</button>
+            </div>
+            <form id="recordForm">
+                <input type="hidden" id="recordId">
+                <input type="hidden" id="recordType">
+                
+                <div id="formFields"></div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeRecordModal()">取消</button>
+                    <button type="submit" class="btn-primary">保存记录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 数据管理类
+        class RecordManager {
+            constructor() {
+                this.records = this.loadRecords();
+            }
+
+            loadRecords() {
+                try {
+                    const data = localStorage.getItem('growthRecords');
+                    return data ? JSON.parse(data) : [];
+                } catch (e) {
+                    console.error('加载记录失败:', e);
+                    return [];
+                }
+            }
+
+            saveRecords() {
+                try {
+                    localStorage.setItem('growthRecords', JSON.stringify(this.records));
+                } catch (e) {
+                    console.error('保存记录失败:', e);
+                    alert('保存失败，请检查浏览器存储空间');
+                }
+            }
+
+            addRecord(record) {
+                record.id = Date.now().toString();
+                record.createdAt = new Date().toISOString();
+                this.records.unshift(record);
+                this.saveRecords();
+                return record;
+            }
+
+            updateRecord(id, updatedData) {
+                const index = this.records.findIndex(r => r.id === id);
+                if (index !== -1) {
+                    this.records[index] = { ...this.records[index], ...updatedData, updatedAt: new Date().toISOString() };
+                    this.saveRecords();
+                    return this.records[index];
+                }
+                return null;
+            }
+
+            deleteRecord(id) {
+                this.records = this.records.filter(r => r.id !== id);
+                this.saveRecords();
+            }
+
+            getRecords() {
+                return this.records;
+            }
+
+            getRecordById(id) {
+                return this.records.find(r => r.id === id);
+            }
+        }
+
+        const recordManager = new RecordManager();
+
+        // 记录类型配置
+        const recordTypes = {
+            morning: {
+                title: '晨间日记',
+                badge: 'badge-morning',
+                icon: '🌅',
+                fields: [
+                    { name: 'content', label: '今天的感受与想法', type: 'textarea', placeholder: '自由书写，让思绪流淌...' }
+                ]
+            },
+            evening: {
+                title: '晚间日记',
+                badge: 'badge-evening',
+                icon: '🌙',
+                fields: [
+                    { name: 'content', label: '今天有故事的事', type: 'textarea', placeholder: '记录今天最精彩的瞬间...' }
+                ]
+            },
+            emotion: {
+                title: '情绪记录',
+                badge: 'badge-emotion',
+                icon: '💭',
+                fields: [
+                    { name: 'emotion', label: '当前情绪', type: 'text', placeholder: '例如：焦虑、开心、平静...' },
+                    { name: 'content', label: '情绪细节', type: 'textarea', placeholder: '描述你的情绪和感受...' }
+                ]
+            },
+            gratitude: {
+                title: '感恩日记',
+                badge: 'badge-gratitude',
+                icon: '🙏',
+                fields: [
+                    { name: 'person1', label: '感谢对象 1', type: 'text', placeholder: '名字' },
+                    { name: 'quality1', label: '品质', type: 'text', placeholder: '他/她的品质' },
+                    { name: 'event1', label: '具体事件', type: 'textarea', placeholder: '体现这个品质的事件' },
+                    { name: 'person2', label: '感谢对象 2', type: 'text', placeholder: '名字' },
+                    { name: 'quality2', label: '品质', type: 'text', placeholder: '他/她的品质' },
+                    { name: 'event2', label: '具体事件', type: 'textarea', placeholder: '体现这个品质的事件' },
+                    { name: 'person3', label: '感谢对象 3', type: 'text', placeholder: '名字' },
+                    { name: 'quality3', label: '品质', type: 'text', placeholder: '他/她的品质' },
+                    { name: 'event3', label: '具体事件', type: 'textarea', placeholder: '体现这个品质的事件' }
+                ]
+            },
+            odyssey: {
+                title: '奥德赛计划',
+                badge: 'badge-odyssey',
+                icon: '🚀',
+                fields: [
+                    { name: 'current', label: '现状延续版', type: 'textarea', placeholder: '五年后的你，如果延续当前状态...' },
+                    { name: 'change', label: '改变转型版', type: 'textarea', placeholder: '五年后的你，如果做出改变...' },
+                    { name: 'ideal', label: '理想实现版', type: 'textarea', placeholder: '五年后的你，如果一切顺利...' }
+                ]
+            },
+            wheel: {
+                title: '生命之轮',
+                badge: 'badge-wheel',
+                icon: '⚖️',
+                fields: [
+                    { name: 'health', label: '健康 (1-10分)', type: 'number', min: 1, max: 10 },
+                    { name: 'career', label: '事业 (1-10分)', type: 'number', min: 1, max: 10 },
+                    { name: 'relationship', label: '人际关系 (1-10分)', type: 'number', min: 1, max: 10 },
+                    { name: 'growth', label: '个人成长 (1-10分)', type: 'number', min: 1, max: 10 },
+                    { name: 'leisure', label: '休闲娱乐 (1-10分)', type: 'number', min: 1, max: 10 },
+                    { name: 'notes', label: '备注', type: 'textarea', placeholder: '记录你的想法...' }
+                ]
+            },
+            celebration: {
+                title: '12月庆典',
+                badge: 'badge-celebration',
+                icon: '🎉',
+                fields: [
+                    { name: 'achievements', label: '一年后的成就', type: 'textarea', placeholder: '想象一年后你取得了哪些成就...' },
+                    { name: 'current_actions', label: '当下的行动', type: 'textarea', placeholder: '为达成目标，现在要做什么...' }
+                ]
+            },
+            fear: {
+                title: '恐惧设定',
+                badge: 'badge-fear',
+                icon: '🛡️',
+                fields: [
+                    { name: 'worst', label: '最坏的结果', type: 'textarea', placeholder: '最坏会发生什么？' },
+                    { name: 'prevent', label: '如何预防', type: 'textarea', placeholder: '如何降低风险？' },
+                    { name: 'remedy', label: '如何补救', type: 'textarea', placeholder: '如果发生了如何应对？' },
+                    { name: 'success', label: '成功的影响', type: 'textarea', placeholder: '成功后会怎样？' },
+                    { name: 'cost', label: '逃避的代价', type: 'textarea', placeholder: '不行动的后果？' }
+                ]
+            },
+            romen: {
+                title: '罗门悖论',
+                badge: 'badge-romen',
+                icon: '👴',
+                fields: [
+                    { name: 'advice', label: '未来的我给现在的建议', type: 'textarea', placeholder: '如果你是几十年后的自己，会给现在的你什么建议？' }
+                ]
+            }
+        };
+
+        // 打开记录模态框
+        function openRecordModal(type, recordId = null) {
+            const modal = document.getElementById('recordModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const recordTypeInput = document.getElementById('recordType');
+            const recordIdInput = document.getElementById('recordId');
+            const formFields = document.getElementById('formFields');
+
+            const config = recordTypes[type];
+            modalTitle.textContent = config.title;
+            recordTypeInput.value = type;
+            recordIdInput.value = recordId || '';
+
+            // 生成表单字段
+            formFields.innerHTML = config.fields.map(field => {
+                const value = recordId ? getFieldValue(recordId, field.name) : '';
+                if (field.type === 'textarea') {
+                    return `
+                        <div class="form-group">
+                            <label>${field.label}</label>
+                            <textarea name="${field.name}" placeholder="${field.placeholder}">${value}</textarea>
+                        </div>
+                    `;
+                } else if (field.type === 'number') {
+                    return `
+                        <div class="form-group">
+                            <label>${field.label}</label>
+                            <input type="number" name="${field.name}" min="${field.min}" max="${field.max}" value="${value || field.min}">
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="form-group">
+                            <label>${field.label}</label>
+                            <input type="text" name="${field.name}" placeholder="${field.placeholder}" value="${value}">
+                        </div>
+                    `;
+                }
+            }).join('');
+
+            modal.classList.add('active');
+        }
+
+        // 获取字段值
+        function getFieldValue(recordId, fieldName) {
+            const record = recordManager.getRecordById(recordId);
+            return record && record.data ? (record.data[fieldName] || '') : '';
+        }
+
+        // 关闭模态框
+        function closeRecordModal() {
+            const modal = document.getElementById('recordModal');
+            modal.classList.remove('active');
+            document.getElementById('recordForm').reset();
+        }
+
+        // 保存记录
+        document.getElementById('recordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const recordId = formData.get('recordId');
+            const recordType = formData.get('recordType');
+            
+            const data = {};
+            let hasContent = false;
+            
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'recordId' && key !== 'recordType') {
+                    data[key] = value;
+                    if (value.trim()) hasContent = true;
+                }
+            }
+
+            if (!hasContent) {
+                alert('请至少填写一项内容');
+                return;
+            }
+
+            if (recordId) {
+                recordManager.updateRecord(recordId, { data });
+            } else {
+                recordManager.addRecord({ type: recordType, data });
+            }
+
+            closeRecordModal();
+            displayRecords();
+            
+            // 滚动到记录区域
+            document.getElementById('my-records').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // 显示记录列表
+        function displayRecords() {
+            const recordsList = document.getElementById('recordsList');
+            const records = recordManager.getRecords();
+
+            console.log('显示记录:', records.length); // 调试信息
+
+            if (records.length === 0) {
+                recordsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <p>还没有记录，开始你的第一次记录吧！</p>
+                    </div>
+                `;
+                return;
+            }
+
+            recordsList.innerHTML = records.map(record => {
+                const config = recordTypes[record.type];
+                const date = new Date(record.createdAt);
+                const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+                return `
+                    <div class="record-item">
+                        <div class="record-header">
+                            <div>
+                                <span class="record-type-badge ${config.badge}">${config.icon} ${config.title}</span>
+                                <div class="record-date">${formattedDate}</div>
+                            </div>
+                            <div class="record-actions">
+                                <button class="btn-icon" onclick="editRecord('${record.id}')" title="编辑">✏️</button>
+                                <button class="btn-icon btn-delete" onclick="deleteRecord('${record.id}')" title="删除">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="record-content">
+                            ${formatRecordContent(record)}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 格式化记录内容
+        function formatRecordContent(record) {
+            const config = recordTypes[record.type];
+            let html = '';
+
+            config.fields.forEach(field => {
+                const value = record.data[field.name];
+                if (value && value.toString().trim()) {
+                    html += `<h4>${field.label}</h4><p>${value.toString().replace(/\n/g, '<br>')}</p>`;
+                }
+            });
+
+            return html || '<p>暂无内容</p>';
+        }
+
+        // 编辑记录
+        function editRecord(id) {
+            const record = recordManager.getRecordById(id);
+            if (record) {
+                openRecordModal(record.type, id);
+            }
+        }
+
+        // 删除记录
+        function deleteRecord(id) {
+            if (confirm('确定要删除这条记录吗？')) {
+                recordManager.deleteRecord(id);
+                displayRecords();
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成，初始化记录显示');
+            displayRecords();
+            
+            // 立即显示"我的记录"区域
+            const myRecordsSection = document.getElementById('my-records');
+            if (myRecordsSection) {
+                myRecordsSection.classList.add('visible');
+            }
+        });
+
+        // 滚动进度条
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // 滚动显示动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.querySelector('header');
+            
+            if (currentScroll > 100) {
+                header.style.padding = '0.8rem 2rem';
+                header.style.boxShadow = '0 2px 30px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '1.2rem 2rem';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // 点击模态框外部关闭
+        document.getElementById('recordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRecordModal();
+            }
+        });
+    </script>
+</body>
+</html>
