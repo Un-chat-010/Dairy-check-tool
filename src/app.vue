@@ -217,10 +217,10 @@ const handleDiaryInput = () => {
 }
 
 // （照片相关逻辑暂时保留原本框架，下一步处理）
-const deletePhoto = (id: string) => { photos.value = photos.value.filter(p => p.id !== id); }
-const savePhotos = () => { /* 待替换为云端逻辑 */ }
-const handleFileInput = (e: Event) => { /* 待替换为云端逻辑 */ }
-const handleDrop = (e: DragEvent) => { /* 待替换为云端逻辑 */ }
+// 把 App.vue 里最底下的那几个空函数改成这样，去掉括号里的 e: Event 和 e: DragEvent
+const savePhotos = () => { /* 待替换 */ }
+const handleFileInput = () => { /* 待替换 */ }
+const handleDrop = () => { /* 待替换 */ }
 </script>
 
 <style scoped>
