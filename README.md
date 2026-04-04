@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-# Vue 3 + TypeScript + Vite
-
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
-=======
 # 简单显化日记 (Manifestation Diary)
 
 这是一个基于 Vue 3 + TypeScript 构建的个人深度觉察与日常记录系统。它不仅仅是一个日记本，更是一个将宏大目标拆解为每日微小行动的个人管理控制台。
@@ -33,4 +26,4 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 
 ```bash
 npm install
->>>>>>> d95139d811fdc8838bf1708a4a3cb8f9d99e6445
+```
